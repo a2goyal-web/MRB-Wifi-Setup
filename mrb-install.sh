@@ -43,15 +43,15 @@ sleep 2
 echo "[4/8] Creating folder structure..."
 mkdir -p /opt/mrb-portal/templates
 
-# ── Step 5: Download logo from GitHub ──────────────────────
-echo "[5/8] Downloading logo from GitHub..."
-curl -fsSL "https://raw.githubusercontent.com/a2goyal-web/MRB-Wifi-Setup/main/MRB_Logo.png" \
-    -o /opt/mrb-portal/templates/logo.png
+# ── Step 5: Copy logo from repo folder ─────────────────────
+echo "[5/8] Copying logo..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ $? -eq 0 ]; then
-    echo "Logo downloaded successfully."
+if [ -f "$SCRIPT_DIR/MRB_Logo.png" ]; then
+    cp "$SCRIPT_DIR/MRB_Logo.png" /opt/mrb-portal/templates/logo.png
+    echo "Logo copied from: $SCRIPT_DIR/MRB_Logo.png"
 else
-    echo "WARNING: Could not download logo. Portal will run without logo."
+    echo "WARNING: MRB_Logo.png not found next to installer. Portal will run without logo."
     touch /opt/mrb-portal/templates/logo.png
 fi
 
