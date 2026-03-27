@@ -43,22 +43,15 @@ sleep 2
 echo "[4/8] Creating folder structure..."
 mkdir -p /opt/mrb-portal/templates
 
-# ── Step 5: Copy logo from USB ─────────────────────────────
-echo "[5/8] Copying logo from USB..."
-LOGO_SRC=""
+# ── Step 5: Download logo from GitHub ──────────────────────
+echo "[5/8] Downloading logo from GitHub..."
+curl -fsSL "https://raw.githubusercontent.com/a2goyal-web/MRB-Wifi-Setup/main/MRB_Logo.png" \
+    -o /opt/mrb-portal/templates/logo.png
 
-for mount_path in /media/mrb/* /media/pi/* /mnt/*; do
-    if [ -f "$mount_path/MRB_Logo.png" ]; then
-        LOGO_SRC="$mount_path/MRB_Logo.png"
-        break
-    fi
-done
-
-if [ -n "$LOGO_SRC" ]; then
-    cp "$LOGO_SRC" /opt/mrb-portal/templates/logo.png
-    echo "Logo copied from: $LOGO_SRC"
+if [ $? -eq 0 ]; then
+    echo "Logo downloaded successfully."
 else
-    echo "WARNING: MRB_Logo.png not found on USB. Portal will run without logo."
+    echo "WARNING: Could not download logo. Portal will run without logo."
     touch /opt/mrb-portal/templates/logo.png
 fi
 
