@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MRB Wi-Fi Setup</title>
+  <style>
+    :root {
+      --brand: #0050ae;
+      --bg: #ebeff8;
+      --accent: #fea301;
+    }
+    body {
+      font-family: sans-serif;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: var(--bg);
+      color: #1a1a1a;
+    }
+    .logo { display: block; max-width: 240px; width: 60%; margin: 0 auto 24px; }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px 20px;
+      box-shadow: 0 2px 12px rgba(0, 80, 174, 0.12);
+    }
+    h1 { font-size: 1.3em; color: var(--brand); text-align: center; margin: 0 0 20px; }
+    label { font-weight: 600; font-size: 0.95em; }
+    input, button {
+      width: 100%; padding: 11px; margin: 8px 0 14px;
+      font-size: 1em; box-sizing: border-box;
+      border: 1px solid #cfd8ea; border-radius: 6px;
+    }
+    button {
+      background: var(--brand); color: #fff; border: none;
+      border-radius: 6px; cursor: pointer; font-weight: 600; margin-bottom: 0;
+    }
+    button:hover { background: #003f8a; }
+    .rebooting { color: var(--brand); font-weight: bold; }
+    .failed { color: #c00; font-weight: bold; }
+    .password-wrapper { position: relative; }
+    .password-wrapper input { padding-right: 44px; }
+    .eye-btn {
+      position: absolute; right: 10px; top: 42%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; padding: 0;
+      width: auto; margin: 0; font-size: 1.2em; color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <img class="logo" src="data:image/png;base64,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" alt="My Retail Buddy">
+  <div class="card">
+    <h1>Wi-Fi Setup</h1>
+
+    {% if rebooting %}
+      <p class="rebooting" id="statusmsg">
+        &#9203; Connecting to <strong>{{ ssid }}</strong>&hellip; verifying internet.
+        If it works, the Pi reboots (30&ndash;60s). If the password is wrong,
+        this page will come back so you can retry.
+      </p>
+      <script>
+        const poll = setInterval(async () => {
+          try {
+            const r = await fetch('/status');
+            const s = await r.json();
+            if (s.state === 'failed') {
+              clearInterval(poll);
+              const el = document.getElementById('statusmsg');
+              el.className = 'failed';
+              el.innerHTML = '&#10060; Could not connect to <strong>{{ ssid }}</strong>. ' +
+                'Check the password and try again.';
+              setTimeout(() => location.href = '/', 3000);
+            }
+          } catch (e) { /* Pi may be rebooting on success - ignore */ }
+        }, 4000);
+      </script>
+    {% else %}
+      {% if status and status.state == 'failed' %}
+        <p class="failed">&#10060; Last attempt failed. Please re-check the password.</p>
+      {% endif %}
+      <form method="POST" action="/connect">
+        <label>Wi-Fi Name (SSID):</label>
+        <input type="text" name="ssid" id="ssid" placeholder="Enter exact network name" autocapitalize="none" autocomplete="off" required>
+        <label>Password:</label>
+        <div class="password-wrapper">
+          <input type="password" name="password" id="password" placeholder="Enter Wi-Fi password">
+          <button type="button" class="eye-btn" onclick="togglePassword()">&#128065;</button>
+        </div>
+        <button type="submit">Connect</button>
+      </form>
+    {% endif %}
+  </div>
+
+  <script>
+    function togglePassword() {
+      const input = document.getElementById('password');
+      if (input) input.type = input.type === 'password' ? 'text' : 'password';
+    }
+  </script>
+</body>
+</html>

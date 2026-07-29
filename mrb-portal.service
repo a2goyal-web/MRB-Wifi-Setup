@@ -1,0 +1,15 @@
+[Unit]
+Description=MRB Wi-Fi Setup Portal
+After=NetworkManager.service
+Wants=NetworkManager.service
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /opt/mrb-portal/start.sh
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
