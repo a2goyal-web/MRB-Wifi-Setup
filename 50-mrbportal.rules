@@ -1,0 +1,8 @@
+// Allow the unprivileged mrbportal user to manage NetworkManager connections
+// (create/modify/activate Wi-Fi profiles) without root or a password.
+polkit.addRule(function(action, subject) {
+  if (subject.user == "mrbportal" &&
+      (action.id.indexOf("org.freedesktop.NetworkManager.") == 0)) {
+    return polkit.Result.YES;
+  }
+});

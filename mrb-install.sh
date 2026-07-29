@@ -57,17 +57,22 @@ python3 -m venv "$DEST/venv"
 "$DEST/venv/bin/pip" install flask
 
 # --- Step 7: nftables 80 -> 8080 redirect -----------------------------------
-echo "[7/9] Installing nftables redirect..."
+echo "[7/10] Installing nftables redirect..."
 cp "$REPO_DIR/nftables.conf" /etc/nftables.conf
 systemctl enable --now nftables
 
-# --- Step 8: Ownership -------------------------------------------------------
-echo "[8/9] Fixing ownership..."
+# --- Step 8: polkit rule so mrbportal can manage Wi-Fi without root ----------
+echo "[8/10] Installing polkit rule..."
+cp "$REPO_DIR/50-mrbportal.rules" /etc/polkit-1/rules.d/50-mrbportal.rules
+systemctl restart polkit || true
+
+# --- Step 9: Ownership -------------------------------------------------------
+echo "[9/10] Fixing ownership..."
 chown -R mrbportal:mrbportal "$DEST"
 chmod 750 "$DEST"
 
-# --- Step 9: systemd service -------------------------------------------------
-echo "[9/9] Installing systemd service..."
+# --- Step 10: systemd service ------------------------------------------------
+echo "[10/10] Installing systemd service..."
 cp "$REPO_DIR/mrb-portal.service" /etc/systemd/system/mrb-portal.service
 systemctl daemon-reload
 systemctl enable mrb-portal

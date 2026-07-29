@@ -32,6 +32,7 @@ sudo ./mrb-install.sh
 | `start.sh` | Boot logic: ping-check, then launch AP + portal |
 | `mrb-portal.service` | systemd unit |
 | `nftables.conf` | Redirects port 80 → 8080 |
+| `50-mrbportal.rules` | polkit rule: lets `mrbportal` manage Wi-Fi without root |
 
 ## Admin
 
