@@ -47,7 +47,7 @@ def connect_and_reboot():
     run(['nmcli', 'connection', 'down', AP_NAME])
     run(['nmcli', 'connection', 'delete', AP_NAME])
     time.sleep(2)
-    subprocess.run(['reboot'])
+    subprocess.run(['systemctl', 'reboot'])
 
 
 STATE = {'saved_ssid': None}

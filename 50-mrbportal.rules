@@ -1,8 +1,11 @@
 // Allow the unprivileged mrbportal user to manage NetworkManager connections
-// (create/modify/activate Wi-Fi profiles) without root or a password.
+// (create/modify/activate Wi-Fi profiles) AND reboot the device, without root
+// or a password. This is what makes the portal's Save and Connect steps work.
 polkit.addRule(function(action, subject) {
   if (subject.user == "mrbportal" &&
-      (action.id.indexOf("org.freedesktop.NetworkManager.") == 0)) {
+      (action.id.indexOf("org.freedesktop.NetworkManager.") == 0 ||
+       action.id == "org.freedesktop.login1.reboot" ||
+       action.id == "org.freedesktop.login1.reboot-multiple-sessions")) {
     return polkit.Result.YES;
   }
 });
